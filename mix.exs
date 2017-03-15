@@ -3,14 +3,14 @@ defmodule XmlToKeyword.Mixfile do
 
   def project do
     [app: :xml_to_keyword,
-     version: "0.0.1",
+     version: "0.0.4",
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps,
      package: [
      licenses: ["Free licenses"],
-       maintainers: ["Zaali Kavelashvili", "zaali@live.com"]
+       maintainers: ["Zaali Kavelashvili", "zaali@live.com", "Eloy Fernández"]
      ],
      description: """
        This is an Elixir package that can convert xml into Elixir's Keyword List, which is compilable with XmlBuilder (joshnuss/xml_builder) package
