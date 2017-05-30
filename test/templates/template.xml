@@ -1,10 +1,5 @@
-<SOAP-ENV:Header>
-      <t:Transaction xmlns:t="xxs">
-        <tc>
-          <iden u="FLXtest" p="dLKx6Xne" pseudocity="AFP4" agt="xmlaig001"
-            agtpwd="LWptrg3i" agtrole="Ticketing Agent" agy="05663372"></iden>
-          <trace>AFP4_aig</trace>
-          <script engine="FLXDM" name="airgateway-dispatch.flxdm"/>
-        </tc>
-      </t:Transaction>
-  </SOAP-ENV:Header>
+<body>
+  <foo at="value" from="re-value">
+    bar
+  </foo>
+</body>

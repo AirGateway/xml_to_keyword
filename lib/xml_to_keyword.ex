@@ -6,15 +6,23 @@ defmodule XmlToKeyword do
   Record.defrecord :xmlAttribute, Record.extract(:xmlAttribute, from_lib: "xmerl/include/xmerl.hrl")
 
   def convert(xml) do
-    {doc, _} = xml |> :binary.bin_to_list |> :xmerl_scan.string
-    [elements] = doc
-    |> get_root_path
-    |> :xmerl_xpath.string(doc)
-    |> Enum.map(fn(element) -> parse(xmlElement(element, :content)) end)
+    try do
+      {doc, _} = "<excipient>#{xml}</excipient>" |> :binary.bin_to_list |> :xmerl_scan.string
+      [elements] = doc
+      |> get_root_path
+      |> :xmerl_xpath.string(doc)
+      |> Enum.map(fn(element) -> parse(xmlElement(element, :content)) end)
 
-    [{get_root_name(doc), elements}]
+      data = [{get_root_name(doc), elements}][:excipient] |> Enum.at(0) |> data_to_list
+      {:ok, data}
+    catch
+      :fatal, :expected_element_start_tag -> {:error, 400, "Empty XML message"}
+      _, _ -> {:error, 400, "Fatal error parsing XML message"}
+    end
   end
 
+  defp data_to_list({father, attr, body}), do: {father, [father, attr, body]}
+  defp data_to_list({father, body}), do: {father, [father, body]}
   defp parse(node) do
     cond do
       Record.is_record(node, :xmlElement) ->
