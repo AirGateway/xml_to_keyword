@@ -7,7 +7,7 @@ defmodule XmlToKeyword do
 
   def convert(xml) do
     try do
-      {doc, _} = "<excipient>#{xml}</excipient>" |> :binary.bin_to_list |> :xmerl_scan.string
+      {doc, _} = "<excipient>#{Regex.replace(~r/<\?xml [\S\s]*\?>/s, xml, "")}</excipient>" |> :binary.bin_to_list |> :xmerl_scan.string
       [elements] = doc
       |> get_root_path
       |> :xmerl_xpath.string(doc)

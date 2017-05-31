@@ -18,6 +18,10 @@ defmodule XmlToKeywordTest do
     xml = XmlToKeyword.convert("<body><foo at='value' from='re-value'><do><redo at='value2'>bar</redo></do></foo></body>")
     assert xml == {:ok, {:body, [:body, [{:foo, %{at: "value", from: "re-value"}, [do: [{:redo, %{at: "value2"}, "bar"}]]}]]}}
   end
+  test "Convert a structure with the xml header" do
+    xml = XmlToKeyword.convert("<?xml version='1.0' encoding='UTF-8'?><body><foo at='value' from='re-value'><do><redo at='value2'>bar</redo></do></foo></body>")
+    assert xml == {:ok, {:body, [:body, [{:foo, %{at: "value", from: "re-value"}, [do: [{:redo, %{at: "value2"}, "bar"}]]}]]}}
+  end
   test "Convert from file" do
     {result, content} = File.read "./test/templates/template.xml"
     xml = XmlToKeyword.convert(content)
