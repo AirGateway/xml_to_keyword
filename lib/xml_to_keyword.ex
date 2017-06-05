@@ -22,7 +22,7 @@ defmodule XmlToKeyword do
   end
 
   defp data_to_list({father, attr, body}), do: {father, [father, attr, body]}
-  defp data_to_list({father, body}), do: {father, [father, body]}
+  defp data_to_list({father, body}), do: {father, [father, %{}, body]}
   defp parse(node) do
     cond do
       Record.is_record(node, :xmlElement) ->
